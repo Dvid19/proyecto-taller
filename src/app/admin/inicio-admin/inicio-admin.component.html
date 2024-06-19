@@ -1,0 +1,160 @@
+<app-nav-admin></app-nav-admin>
+
+<div class="container" style="min-height: 100vh; padding-top: 5rem;">
+
+     <!-- Menu del TAB -->
+     <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="titulares-tab" data-bs-toggle="tab" data-bs-target="#titulares" type="button" role="tab" aria-controls="titulares" aria-selected="true">Titulares</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="carrusel-tab" data-bs-toggle="tab" data-bs-target="#carrusel" type="button" role="tab" aria-controls="carrusel" aria-selected="false">Carrusel</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="fondo-tab" data-bs-toggle="tab" data-bs-target="#fondo" type="button" role="tab" aria-controls="fondo" aria-selected="false">Fondo</button>
+        </li>
+      </ul>
+      <!-- Tab -->
+      <div class="tab-content" id="myTabContent">
+        <!-- Titulares -->
+        <div class="tab-pane fade show active" id="titulares" role="tabpanel" aria-labelledby="titulares-tab">
+            <!-- Inicio -->
+            <div class="row mt-4">
+                <div class="col-12 mb-3">
+                    <label for="" class="form-label">Titulo</label>
+                    <input type="text" class="form-control" placeholder="Ingresa titulo">
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="" class="form-label">Subitulo</label>
+                    <input type="text" class="form-control" placeholder="Ingresa subtitulo">
+                </div>
+                <hr class="my-3">
+                <div class="col-12 mb-3">
+                    <label for="" class="form-label mb-3">Documento CV</label>
+        
+                    <div class="col-12">
+        
+                        <!-- Subir el archivo -->
+                        <label *ngIf="!documentoCv" class="d-flex justify-content-start align-items-center" for="foto" style="padding: 1rem; cursor: pointer; border: 3px dashed rgb(45, 124, 251); border-radius: .5rem; width: 100%;">
+                            <p class="mb-0 me-auto ms-auto">Sube tu archivo de curriculum en formato de PDF</p>
+                            <input (change)="agregarDocumento($event)" style="display: none;" id="foto" type="file">
+                        </label>
+        
+                        <label *ngIf="documentoCv" class="d-flex justify-content-start align-items-center" for="foto" style="padding: 1rem; cursor: pointer; border: 1px solid rgb(0, 0, 0); border-radius: 0rem; width: 100%;">
+                            <img class="" style="width: 3.5rem;" src="assets/admin/pdf.png" alt="">
+                            <p class="mb-0 me-auto ms-auto">Sube tu archivo de curriculum en formato de PDF</p>
+                            <button (click)="eliminarDocumento()" class="btn btn-danger"> <i class="bi bi-trash"></i> </button>
+                        </label>
+        
+                       
+                    </div>
+        
+        
+                </div>
+        
+                <div class="col-12">
+                    <button (click)="titularPost()" class="btn btn-success"> <i class="bi bi-pencil-square me-1"></i> Actualizar</button>
+                </div>
+            </div>
+        
+            <!-- Final -->
+        </div>
+        <!-- Carrusel -->
+        <div class="tab-pane fade" id="carrusel" role="tabpanel" aria-labelledby="carrusel-tab">
+            <!-- Inicio -->
+            <div class="row mt-3">
+                <div class="col-12 mb-3">
+                  <button (click)="fotoCarruselReset();" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#fotoModal">
+                    <i class="bi bi-plus-circle me-1"></i> AGREGAR IMAGEN
+                  </button>
+                </div>
+                <hr class="mb-3">
+                <div class="col-6 col-md-4 col-lg-3 my-2" *ngFor="let f of carrusel">
+                  <img width="100%" [src]="f.foto" alt="">
+                  <button (click)="fotoCarruselDelete(f.idHeaderCarruselFoto)"  class="btn btn-danger" style="border-radius: 0; width: 50%;">ELIMINAR</button>
+                  <button data-bs-toggle="modal" data-bs-target="#fotoModal" (click)="fotoCarruselGet(f.idHeaderCarruselFoto)" class="btn btn-primary" style="border-radius: 0; width: 50%;">EDITAR</button>
+                </div>
+            
+                <!-- Modal de agregar imagen y editarla -->
+                <div class="modal fade" id="fotoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fotoModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-scrollable modal-md">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title fs-5" id="fotoModalLabel">Modal Foto</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+            
+                        <div class="row">
+                          <div class="col-12" *ngIf="!fotoCarrusel">
+            
+                            <!-- Personalizado -->
+                            <div class="custom-file-input">
+                              <label for="file-upload" class="file-label">
+                                <img src="./assets/admin/subir-foto.png" alt="Preview" id="preview-image" class="preview-image">
+                                <input type="file" id="file-upload" class="file-input" (change)="fileChangeHandler1($event)">
+                              </label>
+                            </div>
+                            
+                            <!-- <input type="file" (change)="fileChangeHandler($event)"> -->
+                          </div>
+            
+                          <!-- Vista previa -->
+                          <div class="col-12" *ngIf="fotoCarrusel">
+                            <button (click)="fotoCarruselLimpiar()"   class="btn btn-dark mb-2" style="width: 100%;"><i class="bi bi-trash3 me-1-"></i> LIMPIAR</button>
+                            <hr>
+                            <img style="width: 100%;" [src]="fotoCarrusel" alt="">
+                          </div>
+                        </div>
+            
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button (click)="fotoCarruselEstado == 'add' ? fotoCarruselPost() : fotoCarruselPut()" [disabled]="!output1?.file" type="button" class="btn btn-primary" data-bs-toggle="modal">{{fotoCarruselEstado == 'add' ? 'Guardar' : 'Actualizar'}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+            <!-- Final -->
+        </div>
+        <!-- Foto de fondo de header -->
+        <div class="tab-pane fade" id="fondo" role="tabpanel" aria-labelledby="fondo-tab">
+            <!-- Inicia -->
+            <div class="row my-3">
+                <div class="col-12 mb-3">
+                  <button [disabled]="!output2?.file" (click)="fondoHeaderPut()" class="btn btn-success me-2 mb-2">
+                    <i class="bi bi-pencil-square me-1"></i> ACTUALIZAR IMAGEN
+                  </button>
+                  <button *ngIf="fotoFondoHeader" [disabled]="!output2?.file" (click)="fotoFondoLimpiar()" class="btn btn-dark me-2 mb-2"> <i class="bi bi-trash3 me-1"></i> LIMPIAR</button>
+                  <button *ngIf="fotoFondoHeader && !output2?.file" (click)="fondoHeaderDelete()" class="btn btn-danger mb-2"> <i class="bi bi-file-earmark-x me-1"></i> ELIMINAR</button>
+                </div>
+  
+                <hr class="mb-4">
+  
+                <!-- Subir y editar -->
+                <div class="col-12" *ngIf="!fotoFondoHeader">
+                  <label for="fondo-img" style="width: 100%;" class="file-label">
+                    <img src="./assets/admin/subir-foto.png" alt="">
+                    <input id="fondo-img" style="display: none;" type="file" (change)="fileChangeHandler2($event)">
+                  </label>
+                </div>
+                
+                <!-- Previsualización -->
+                <div class="col-12" *ngIf="fotoFondoHeader">
+                  <img style="width: 100%;" [src]="fotoFondoHeader" alt="">
+                </div>
+            </div>
+            <!-- Termina -->
+        </div>
+    </div>
+      <!-- Termina tab -->
+
+    
+
+</div>
+
+
+
+<app-footer></app-footer>

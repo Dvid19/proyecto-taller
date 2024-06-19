@@ -1,0 +1,20 @@
+
+
+.titulos{
+    min-height: calc(100vh - 3rem); 
+}
+
+.carrusel{
+    min-height: calc(100vh - 3rem); 
+}
+
+@media screen and (max-width:1024px){
+    .titulos{
+        padding-top: 7.5rem;
+        padding-bottom: 7.5rem;
+        min-height: auto;
+    }
+    .carrusel{
+        min-height: auto;
+    }
+}

@@ -1,0 +1,31 @@
+<app-nav></app-nav>
+
+<div class="container-fluid" style="background-image:linear-gradient(rgba(10,10,10,.2), rgba(10,10,10,.9)), url('assets/header.jpg'); background-size: cover; background-position: center;">
+    <div class="row">
+        <!-- Titulos -->
+        <div class="col-12 col-lg-6 d-flex align-items-center px-5 titulos">
+            <div class="titulares d-flex justify-content-center align-items-lg-start align-items-center flex-column">
+                <h1 class="fs-1 text-white fs-bold mb-2 text-lg-start text-center">Lorem ipsum dolor sit amet.</h1>
+                <h2 class="fs-3 text-white fw-normal mb-4 text-lg-start text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore?</h2>
+                <button class="btn btn-primary fw-bold"> <i class="bi bi-file-earmark-pdf me-1"></i> DESCARGAR CV</button>
+            </div>
+        </div>
+
+        <!-- Carrusel de fotos -->
+        <div class="col-12 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-center align-items-end p-0">
+            <ngx-slick-carousel class="carousel"
+            #slickModal="slick-carousel"
+            style="width: 100%; "
+            [config]="slideConfig">
+
+                <div ngxSlickItem *ngFor="let slide of slides" class="slide d-flex justify-content-center">
+                    <img style="max-height: 85vh" [src]="slide" alt="" class="img-style">
+                </div>
+
+            </ngx-slick-carousel>
+        </div>
+
+    </div>
+</div>
+
+<app-footer></app-footer>

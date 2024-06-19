@@ -1,0 +1,28 @@
+.con{
+    padding-left: 5rem; 
+    padding-right: 5rem;
+}
+
+.link{
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+}
+
+.link:hover{
+    background-color: black;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .con{
+        padding-left: 3rem; 
+        padding-right: 3rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .con{
+        padding-left: 0rem; 
+        padding-right: 0rem;
+    }
+}
